@@ -15,13 +15,13 @@ public class Ability : MonoBehaviour
     public bool cast = false;
 
     public CastState Status;
-    [SerializeField] float ChargeTime;
-    [SerializeField] float ChannelDuration;
-    [SerializeField] float CoolDownDuration;
+    [SerializeField] protected float ChargeTime;
+    [SerializeField] protected float ChannelDuration;
+    [SerializeField] protected float CoolDownDuration;
 
-    private float ChargeTimeRemaining;
-    private float ChannelDurationRemaining;
-    private float CoolDownDurationRemaining;
+    protected float ChargeTimeRemaining;
+    protected float ChannelDurationRemaining;
+    protected float CoolDownDurationRemaining;
 
 
     // Start is called before the first frame update
@@ -31,7 +31,7 @@ public class Ability : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         switch (Status)
         {
@@ -59,7 +59,7 @@ public class Ability : MonoBehaviour
     }
 
     //Sets/Preps defaults for casting ability
-    protected void CastAbility()
+    protected virtual void CastAbility()
     {
         print("Casting");
         // Set values to prep for casting
@@ -72,7 +72,7 @@ public class Ability : MonoBehaviour
     }
 
     //Handles Charging Ability
-    protected void ChargeAbility()
+    protected virtual void ChargeAbility()
     {
         //Wait for activation animations
         if (ChargeTimeRemaining > 0)
@@ -88,7 +88,7 @@ public class Ability : MonoBehaviour
     }
 
     //Handles Channeling the Ability
-    protected void ChannelAbility()
+    protected virtual void ChannelAbility()
     {
         //While channeling durations is available
         if(ChannelDurationRemaining > 0)
@@ -105,7 +105,7 @@ public class Ability : MonoBehaviour
     }
 
     //Handles the Ability Cooldown
-    protected void AbilityCooldown()
+    protected virtual void AbilityCooldown()
     {
         //Wait for Cooldown to finish
         if(CoolDownDurationRemaining > 0)
