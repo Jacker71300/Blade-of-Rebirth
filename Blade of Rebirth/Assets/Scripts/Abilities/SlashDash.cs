@@ -6,11 +6,14 @@ public class SlashDash : Ability
 {
     [SerializeField] float DashDistance;
     [SerializeField] GameObject hitbox;
+    Vector3 direction;
+    float dashSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
         Status = CastState.Ready;
+        dashSpeed = DashDistance / ChannelDuration;
     }
 
     // Update is called once per frame
@@ -20,8 +23,11 @@ public class SlashDash : Ability
         {
             //Waits for ability activation
             case CastState.Ready:
-                if (cast)
+                if (casted)
+                {
+                    casted = false;
                     CastAbility();
+                }
                 break;
 
             //Handles Charging ability
@@ -47,10 +53,11 @@ public class SlashDash : Ability
         base.CastAbility();
     }
 
-    //Activates a hitbox as a child of the player
+    //Activates a hitbox as a child of the player and sets direction
     protected override void ChargeAbility()
     {
         base.ChargeAbility();
+        direction = gameObject.transform.forward;
         ChannelAbility();
     }
 
@@ -60,14 +67,13 @@ public class SlashDash : Ability
         //While channeling duration is available, dash forward
         if (ChannelDurationRemaining > 0)
         {
-            //Calculate this frame's movement
-            float currentMoveDistance = DashDistance * Time.deltaTime / ChannelDuration;
-
             //Move
-            gameObject.transform.vel
+            gameObject.GetComponent<Rigidbody>().velocity = direction * dashSpeed;
+            ChannelDurationRemaining -= Time.deltaTime;
         }
         else //Put ability on cooldown
         {
+            gameObject.GetComponent<Rigidbody>().velocity = direction * 0;
             ChannelDurationRemaining = 0;
             Status = CastState.Cooldown;
         }
