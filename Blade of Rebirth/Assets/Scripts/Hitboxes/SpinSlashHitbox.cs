@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DashSlashHitbox : MonoBehaviour
+public class SpinSlashHitbox : MonoBehaviour
 {
     [SerializeField] List<GameObject> Collisions;
     // Start is called before the first frame update
@@ -23,8 +23,17 @@ public class DashSlashHitbox : MonoBehaviour
         // Filter out objects that aren't enemies
         if (other.gameObject.CompareTag("Enemy"))
         {
-            Collisions.Add(other.gameObject);
-            print(other.gameObject.name);
+            // Dont affect the same enemy twice!
+            if (!Collisions.Contains(other.gameObject))
+            {
+                Collisions.Add(other.gameObject);
+                //print(other.gameObject.name);
+            }
         }
+    }
+
+    public int getNumCollisions()
+    {
+        return Collisions.Count;
     }
 }
