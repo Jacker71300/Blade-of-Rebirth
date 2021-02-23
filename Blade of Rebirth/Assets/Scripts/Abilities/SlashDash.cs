@@ -18,7 +18,7 @@ public class SlashDash : Ability
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    void FixedUpdate()
     {
         switch (Status)
         {
@@ -74,12 +74,12 @@ public class SlashDash : Ability
         if (ChannelDurationRemaining > 0)
         {
             //Move
-            gameObject.GetComponent<Rigidbody>().velocity = direction * dashSpeed;
+            gameObject.GetComponent<CharacterController>().Move(direction * dashSpeed * Time.deltaTime);
             ChannelDurationRemaining -= Time.deltaTime;
         }
         else //Put ability on cooldown
         {
-            gameObject.GetComponent<Rigidbody>().velocity = direction * 0;
+            //gameObject.GetComponent<Rigidbody>().velocity = direction * 0;
             Destroy(currentHitbox);
             gameObject.layer = LayerMask.NameToLayer("PlayerNoCollision");
             ChannelDurationRemaining = 0;
