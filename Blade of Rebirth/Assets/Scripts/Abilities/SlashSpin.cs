@@ -1,20 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlashDash : Ability
+public class SlashSpin : Ability
 {
-    [SerializeField] float DashDistance;
-    [SerializeField] GameObject hitbox;
+    [SerializeField] GameObject Hitbox;
     GameObject currentHitbox;
-    Vector3 direction;
-    float dashSpeed;
+    float spinSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
         Status = CastState.Ready;
-        dashSpeed = DashDistance / ChannelDuration;
+        spinSpeed = 360.0f / ChannelDuration;
     }
 
     // Update is called once per frame
@@ -29,7 +28,7 @@ public class SlashDash : Ability
                     casted = false;
 
                     // Check to make sure that the player can't channel both abilities at the same time
-                    if (gameObject.GetComponent<SlashSpin>().Status != CastState.Charging && gameObject.GetComponent<SlashSpin>().Status != CastState.Channeling)
+                    if(gameObject.GetComponent<SlashDash>().Status != CastState.Charging && gameObject.GetComponent<SlashDash>().Status != CastState.Channeling)
                         CastAbility();
                 }
                 break;
@@ -61,27 +60,27 @@ public class SlashDash : Ability
     protected override void ChargeAbility()
     {
         base.ChargeAbility();
-        direction = gameObject.transform.forward;
-        currentHitbox = GameObject.Instantiate(hitbox, gameObject.transform);
-        gameObject.layer = LayerMask.NameToLayer("PlayerNoCollision");
+        currentHitbox = GameObject.Instantiate(Hitbox, gameObject.transform);
         ChannelAbility();
     }
 
-    // Pushes the player forward
+    // Rotates the hitbox around the player
     protected override void ChannelAbility()
     {
-        //While channeling duration is available, dash forward
+        //While channeling duration is available, rotate the hitbox
         if (ChannelDurationRemaining > 0)
         {
-            //Move
-            gameObject.GetComponent<Rigidbody>().velocity = direction * dashSpeed;
+            // Rotate
+            currentHitbox.transform.Rotate(0, -spinSpeed * Time.deltaTime, 0, Space.Self);
             ChannelDurationRemaining -= Time.deltaTime;
         }
         else //Put ability on cooldown
         {
-            gameObject.GetComponent<Rigidbody>().velocity = direction * 0;
+            // if hits > 3, reset the cooldown on SlashDash
+            if (currentHitbox.GetComponentInChildren<SpinSlashHitbox>().getNumCollisions() >= 3)
+                gameObject.GetComponent<SlashDash>().ResetCooldown();
+
             Destroy(currentHitbox);
-            gameObject.layer = LayerMask.NameToLayer("PlayerNoCollision");
             ChannelDurationRemaining = 0;
             Status = CastState.Cooldown;
         }
