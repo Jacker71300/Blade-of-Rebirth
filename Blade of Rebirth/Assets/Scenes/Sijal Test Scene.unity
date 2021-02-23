@@ -160,7 +160,6 @@ MonoBehaviour:
   - m_Transitions
   - m_Follow
   - m_StandbyUpdate
-  - m_Lens
   m_LockStageInInspector: 00000000
   m_StreamingVersion: 20170927
   m_Priority: 10
@@ -331,7 +330,7 @@ MonoBehaviour:
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 1495994005}
   m_Follow: {fileID: 1495994005}
-  m_CommonLens: 1
+  m_CommonLens: 0
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 10
@@ -354,7 +353,7 @@ MonoBehaviour:
     m_DecelTime: 0.01
     m_InputAxisName: Mouse Y
     m_InputAxisValue: 0
-    m_InvertInput: 0
+    m_InvertInput: 1
     m_MinValue: 0
     m_MaxValue: 1
     m_Wrap: 0
@@ -406,7 +405,7 @@ MonoBehaviour:
   - m_Height: 1.35
     m_Radius: 6
   - m_Height: -0.6
-    m_Radius: 3
+    m_Radius: 4
   m_LegacyHeadingBias: 3.4028235e+38
   m_Rigs:
   - {fileID: 1585695052}
@@ -1494,7 +1493,7 @@ MonoBehaviour:
   playerSpeed: 10
   jumpHeight: 1
   gravityValue: -9.81
-  rotationSpeed: 4
+  rotationSpeed: 20
 --- !u!143 &1495994010
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1567,7 +1566,6 @@ MonoBehaviour:
   - m_Transitions
   - m_Follow
   - m_StandbyUpdate
-  - m_Lens
   m_LockStageInInspector: 00000000
   m_StreamingVersion: 20170927
   m_Priority: 10
@@ -1959,7 +1957,6 @@ MonoBehaviour:
   - m_Transitions
   - m_Follow
   - m_StandbyUpdate
-  - m_Lens
   m_LockStageInInspector: 00000000
   m_StreamingVersion: 20170927
   m_Priority: 10
