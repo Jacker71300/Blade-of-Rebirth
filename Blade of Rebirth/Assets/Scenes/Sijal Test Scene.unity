@@ -1472,7 +1472,7 @@ MonoBehaviour:
   Status: 0
   ChargeTime: 0
   ChannelDuration: 0.25
-  CoolDownDuration: 5
+  CoolDownDuration: 0
   DashDistance: 15
   hitbox: {fileID: 5836593191174999891, guid: a9702f6aa85c6344e80f9ed9abeeea22, type: 3}
 --- !u!114 &1495994009
@@ -1528,7 +1528,7 @@ MonoBehaviour:
   Status: 0
   ChargeTime: 0
   ChannelDuration: 0.25
-  CoolDownDuration: 4
+  CoolDownDuration: 0
   Hitbox: {fileID: 7608882895699349282, guid: a91939ff4f9bd2b498d3e20becae63ab, type: 3}
 --- !u!1 &1585695051
 GameObject:
