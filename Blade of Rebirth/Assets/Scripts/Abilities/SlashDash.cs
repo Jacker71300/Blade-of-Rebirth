@@ -18,7 +18,7 @@ public class SlashDash : Ability
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void LateUpdate()
     {
         switch (Status)
         {
