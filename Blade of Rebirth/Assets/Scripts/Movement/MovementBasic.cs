@@ -27,12 +27,16 @@ public class MovementBasic : MonoBehaviour
     {
         movementControl.action.Enable();
         jumpControl.action.Enable();
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void OnDisable()
     {
         movementControl.action.Disable();
         jumpControl.action.Disable();
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
 
@@ -70,7 +74,7 @@ public class MovementBasic : MonoBehaviour
         {
             float targetAngle = Mathf.Atan2(movement.x, movement.y) * Mathf.Rad2Deg + cameraMainTransform.eulerAngles.y;
             Quaternion rotation = Quaternion.Euler(0f, targetAngle, 0f);
-            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
+            transform.rotation = rotation;
         }
     }
 }
