@@ -14,6 +14,8 @@ public class MovementBasic : MonoBehaviour
     [SerializeField]
     private float jumpHeight = 1.0f;
     [SerializeField]
+    private float gracePeriodSet = 0.5f;
+    [SerializeField]
     private float gravityValue = -9.81f;
     [SerializeField]
     private float rotationSpeed = 4f;
@@ -21,6 +23,9 @@ public class MovementBasic : MonoBehaviour
     private CharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
+    private bool groundedGracePeriod;
+    private bool graceJump;
+    private float gracePeriodPriv;
     private Transform cameraMainTransform;
 
     private void OnEnable()
@@ -44,6 +49,8 @@ public class MovementBasic : MonoBehaviour
     {
         controller = gameObject.GetComponent<CharacterController>();
         cameraMainTransform = Camera.main.transform;
+        groundedGracePeriod = false;
+        gracePeriodPriv = gracePeriodSet;
     }
 
     void Update()
@@ -52,6 +59,18 @@ public class MovementBasic : MonoBehaviour
         if (groundedPlayer && playerVelocity.y < 0)
         {
             playerVelocity.y = 0f;
+            graceJump = true;
+            gracePeriodPriv = gracePeriodSet;
+        }
+        if (!groundedPlayer && graceJump)
+        {
+            groundedGracePeriod = true;
+            gracePeriodPriv -= Time.deltaTime;
+            if(gracePeriodPriv == 0)
+            {
+                groundedGracePeriod = false;
+                graceJump = false;
+            }
         }
 
         Vector2 movement = movementControl.action.ReadValue<Vector2>();
@@ -63,9 +82,12 @@ public class MovementBasic : MonoBehaviour
         controller.Move(move * Time.deltaTime * playerSpeed);
 
         // Changes the height position of the player..
-        if (jumpControl.action.triggered && groundedPlayer)
+        if ((jumpControl.action.triggered && groundedPlayer) || (jumpControl.action.triggered && groundedGracePeriod))
         {
+            playerVelocity.y = 0f;
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+            graceJump = false;
+            groundedGracePeriod = false;
         }
 
         playerVelocity.y += gravityValue * Time.deltaTime;
