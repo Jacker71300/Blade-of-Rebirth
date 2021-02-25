@@ -21,7 +21,7 @@ public class SpinSlashHitbox : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // Filter out objects that aren't enemies
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("EnemyCollision") || other.gameObject.layer == LayerMask.NameToLayer("EnemyNoCollision") || other.gameObject.layer == LayerMask.NameToLayer("EnemyAbsoluteCollision"))
         {
             // Dont affect the same enemy twice!
             if (!Collisions.Contains(other.gameObject))
@@ -35,5 +35,10 @@ public class SpinSlashHitbox : MonoBehaviour
     public int getNumCollisions()
     {
         return Collisions.Count;
+    }
+
+    public List<GameObject> getCollisions()
+    {
+        return Collisions;
     }
 }

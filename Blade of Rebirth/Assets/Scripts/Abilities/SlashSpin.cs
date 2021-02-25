@@ -6,6 +6,7 @@ using UnityEngine;
 public class SlashSpin : Ability
 {
     [SerializeField] GameObject Hitbox;
+    [SerializeField] float Damage;
     GameObject currentHitbox;
     float spinSpeed;
 
@@ -79,6 +80,14 @@ public class SlashSpin : Ability
             // if hits > 3, reset the cooldown on SlashDash
             if (currentHitbox.GetComponentInChildren<SpinSlashHitbox>().getNumCollisions() >= 3)
                 gameObject.GetComponent<SlashDash>().ResetCooldown();
+
+            List<GameObject> enemies = currentHitbox.GetComponentInChildren<SpinSlashHitbox>().getCollisions();
+
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                //Apply damage
+                enemies[i].GetComponent<EnemyBase>().ApplyDamage(Damage);
+            }
 
             Destroy(currentHitbox);
             ChannelDurationRemaining = 0;

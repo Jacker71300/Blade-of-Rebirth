@@ -21,10 +21,15 @@ public class DashSlashHitbox : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // Filter out objects that aren't enemies
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("EnemyCollision") || other.gameObject.layer == LayerMask.NameToLayer("EnemyNoCollision") || other.gameObject.layer == LayerMask.NameToLayer("EnemyAbsoluteCollision"))
         {
             Collisions.Add(other.gameObject);
-            print(other.gameObject.name);
+            //print(other.gameObject.name);
         }
+    }
+
+    public List<GameObject> getCollisions()
+    {
+        return Collisions;
     }
 }

@@ -6,6 +6,7 @@ public class SlashDash : Ability
 {
     [SerializeField] float DashDistance;
     [SerializeField] GameObject hitbox;
+    [SerializeField] float Damage;
     GameObject currentHitbox;
     Vector3 direction;
     float dashSpeed;
@@ -79,7 +80,15 @@ public class SlashDash : Ability
         }
         else //Put ability on cooldown
         {
-            //gameObject.GetComponent<Rigidbody>().velocity = direction * 0;
+            //Do damage to each enemy
+            List<GameObject> enemies = currentHitbox.GetComponent<DashSlashHitbox>().getCollisions();
+
+            for(int i = 0; i < enemies.Count; i++)
+            {
+                //Apply damage and reset cooldown on SlashSpin if the enemy dies
+                enemies[i].GetComponent<EnemyBase>().ApplyDamage(Damage, gameObject.GetComponent<SlashSpin>().ResetCooldown);
+            }
+
             Destroy(currentHitbox);
             gameObject.layer = LayerMask.NameToLayer("PlayerNoCollision");
             ChannelDurationRemaining = 0;
