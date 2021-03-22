@@ -12,8 +12,8 @@ public class EnemyBehavior : MonoBehaviour
         attack = 2
     }
 
-    [SerializeField] NavMeshAgent agent;
-    [SerializeField] LayerMask whatIsGround, whatIsPlayer;
+    [SerializeField] protected NavMeshAgent agent;
+    [SerializeField] protected LayerMask whatIsGround, whatIsPlayer;
 
     // Vars for management
     public Transform player;
@@ -28,7 +28,7 @@ public class EnemyBehavior : MonoBehaviour
 
     // Vars for attacking
     public float timeBetweenAttacks;
-    bool alreadyAttacked;
+    protected bool alreadyAttacked;
 
     // Sight and attack
     public float sightRange, attackRange;
@@ -66,7 +66,7 @@ public class EnemyBehavior : MonoBehaviour
     }
 
     // Patrol the area
-    void Patrolling()
+    protected virtual void Patrolling()
     {
         if (!walkPointSet) SearchWalkPoint();
 
@@ -82,7 +82,7 @@ public class EnemyBehavior : MonoBehaviour
         
     }
 
-    void SearchWalkPoint()
+    protected virtual void SearchWalkPoint()
     {
         // find a new point to wander to
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
@@ -95,13 +95,13 @@ public class EnemyBehavior : MonoBehaviour
     }
 
     //Follow the player
-    void ChasePlayer()
+    protected virtual void ChasePlayer()
     {
         agent.SetDestination(player.position);
     }
 
     // Try to attack the player if in range
-    void AttackPlayer()
+    protected virtual void AttackPlayer()
     {
         agent.SetDestination(transform.position);
 
@@ -118,7 +118,7 @@ public class EnemyBehavior : MonoBehaviour
     }
 
     // Reset the attack
-    private void ResetAttack()
+    protected void ResetAttack()
     {
         alreadyAttacked = false;
     }

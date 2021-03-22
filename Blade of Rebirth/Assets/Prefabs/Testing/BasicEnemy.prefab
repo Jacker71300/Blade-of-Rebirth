@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1064596403858005433}
   - component: {fileID: 704090705766284395}
   - component: {fileID: 7412204175959056782}
+  - component: {fileID: 7739322586774504779}
   - component: {fileID: 2322428172301228157}
   - component: {fileID: 7732229921475986078}
   m_Layer: 7
@@ -106,7 +107,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6152968619038939065}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25ad966685c8db843beb2338c2f40de4, type: 3}
   m_Name: 
@@ -125,6 +126,36 @@ MonoBehaviour:
   walkPointSet: 0
   walkPointRange: 10
   timeBetweenAttacks: 5
+  sightRange: 15
+  attackRange: 5
+  inSightRange: 0
+  inAttackRange: 0
+--- !u!114 &7739322586774504779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6152968619038939065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81e1eb165498b484184cb88716c4fab9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 1
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 512
+  player: {fileID: 0}
+  state: 0
+  manager: {fileID: 0}
+  walkPoint: {x: 0, y: 0, z: 0}
+  walkPointSet: 0
+  walkPointRange: 10
+  timeBetweenAttacks: 1
   sightRange: 15
   attackRange: 5
   inSightRange: 0
