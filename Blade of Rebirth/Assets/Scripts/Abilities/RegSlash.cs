@@ -2,20 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlashDash : Ability
+public class RegSlash : Ability
 {
-    [SerializeField] float DashDistance;
     [SerializeField] GameObject hitbox;
     [SerializeField] float Damage;
     GameObject currentHitbox;
-    Vector3 direction;
-    float dashSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
         Status = CastState.Ready;
-        dashSpeed = DashDistance / ChannelDuration;
     }
 
     // Update is called once per frame
@@ -30,7 +26,7 @@ public class SlashDash : Ability
                     casted = false;
 
                     // Check to make sure that the player can't channel both abilities at the same time
-                    if (gameObject.GetComponent<SlashSpin>().Status != CastState.Charging && gameObject.GetComponent<SlashSpin>().Status != CastState.Channeling && gameObject.GetComponent<RegSlash>().Status != CastState.Charging && gameObject.GetComponent<RegSlash>().Status != CastState.Channeling)
+                    if (gameObject.GetComponent<SlashSpin>().Status != CastState.Charging && gameObject.GetComponent<SlashSpin>().Status != CastState.Channeling && gameObject.GetComponent<SlashDash>().Status != CastState.Charging && gameObject.GetComponent<SlashDash>().Status != CastState.Channeling)
                         CastAbility();
                 }
                 break;
@@ -62,7 +58,6 @@ public class SlashDash : Ability
     protected override void ChargeAbility()
     {
         base.ChargeAbility();
-        direction = gameObject.transform.forward;
         currentHitbox = GameObject.Instantiate(hitbox, gameObject.transform);
         gameObject.layer = LayerMask.NameToLayer("PlayerNoCollision");
         ChannelAbility();
@@ -74,21 +69,15 @@ public class SlashDash : Ability
         //While channeling duration is available, dash forward
         if (ChannelDurationRemaining > 0)
         {
-            //Move
-            gameObject.GetComponent<CharacterController>().Move(direction * dashSpeed * Time.deltaTime);
+            //Do damage to each enemy
+            GameObject enemies = currentHitbox.GetComponent<RegSlashHitbox>().getCollisions();
+
+            enemies.GetComponent<EnemyBase>().ApplyDamage(Damage);
+
             ChannelDurationRemaining -= Time.deltaTime;
         }
         else //Put ability on cooldown
         {
-            //Do damage to each enemy
-            List<GameObject> enemies = currentHitbox.GetComponent<DashSlashHitbox>().getCollisions();
-
-            for(int i = 0; i < enemies.Count; i++)
-            {
-                //Apply damage and reset cooldown on SlashSpin if the enemy dies
-                enemies[i].GetComponent<EnemyBase>().ApplyDamage(Damage, gameObject.GetComponent<SlashSpin>().ResetCooldown);
-            }
-
             Destroy(currentHitbox);
             gameObject.layer = LayerMask.NameToLayer("PlayerNoCollision");
             ChannelDurationRemaining = 0;

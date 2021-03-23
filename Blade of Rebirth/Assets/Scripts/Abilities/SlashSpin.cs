@@ -29,7 +29,7 @@ public class SlashSpin : Ability
                     casted = false;
 
                     // Check to make sure that the player can't channel both abilities at the same time
-                    if(gameObject.GetComponent<SlashDash>().Status != CastState.Charging && gameObject.GetComponent<SlashDash>().Status != CastState.Channeling)
+                    if(gameObject.GetComponent<SlashDash>().Status != CastState.Charging && gameObject.GetComponent<SlashDash>().Status != CastState.Channeling && gameObject.GetComponent<RegSlash>().Status != CastState.Charging && gameObject.GetComponent<RegSlash>().Status != CastState.Channeling)
                         CastAbility();
                 }
                 break;
