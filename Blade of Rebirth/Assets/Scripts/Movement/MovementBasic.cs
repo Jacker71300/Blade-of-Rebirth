@@ -74,7 +74,7 @@ public class MovementBasic : MonoBehaviour
         }
 
         Vector2 movement = movementControl.action.ReadValue<Vector2>();
-        Debug.Log(movement);
+        //Debug.Log(movement);
         Vector3 move = new Vector3(movement.x, 0, movement.y);
         Vector3 projectedForward = new Vector3(cameraMainTransform.forward.x, 0, cameraMainTransform.forward.z).normalized;
         move = projectedForward * move.z + cameraMainTransform.right * move.x;
