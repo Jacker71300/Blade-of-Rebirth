@@ -67,8 +67,8 @@ public class SpawnNode : MonoBehaviour
         if (currentSpawnIndex < EnemiesToSpawn.Count) // Don't throw an index out of bounds error
         {
             enemies.Add(GameObject.Instantiate(EnemiesToSpawn[currentSpawnIndex], gameObject.transform.position, gameObject.transform.rotation));
-            if(target != null)
-                enemies[currentSpawnIndex].GetComponent<EnemyBehavior>().
+            if (target != null)
+                enemies[currentSpawnIndex].GetComponent<EnemyBehavior>().SetUninterruptableDestination(target.transform.position);
         }
         currentSpawnIndex++;
     }
