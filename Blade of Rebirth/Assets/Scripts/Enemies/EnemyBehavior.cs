@@ -9,7 +9,8 @@ public class EnemyBehavior : MonoBehaviour
     public enum AIState {
         patrol = 0,
         alert = 1,
-        attack = 2
+        attack = 2,
+        forceMove = 3
     }
 
     [SerializeField] protected NavMeshAgent agent;
@@ -34,6 +35,8 @@ public class EnemyBehavior : MonoBehaviour
     public float sightRange, attackRange;
     public bool inSightRange, inAttackRange;
 
+    protected bool isUninterruptable;
+
     // Set basic values when instantiated
     void Awake()
     {
@@ -48,21 +51,43 @@ public class EnemyBehavior : MonoBehaviour
         inSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         inAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        if (!inSightRange && !inAttackRange)
+        if (isUninterruptable)
         {
-            state = AIState.patrol;
-            Patrolling();
+            state = AIState.forceMove;
+            UninterruptableMove();
         }
-        if (inSightRange && !inAttackRange)
+        else 
         {
-            state = AIState.alert;
-            ChasePlayer();
+            if (!inSightRange && !inAttackRange)
+            {
+                state = AIState.patrol;
+                Patrolling();
+            }
+            if (inSightRange && !inAttackRange)
+            {
+                state = AIState.alert;
+                ChasePlayer();
+            }
+            if (inSightRange && inAttackRange)
+            {
+                state = AIState.attack;
+                AttackPlayer();
+            }
         }
-        if (inSightRange && inAttackRange)
-        {
-            state = AIState.attack;
-            AttackPlayer();
-        }
+    }
+
+    protected virtual void UninterruptableMove()
+    {
+        if (!walkPointSet) SearchWalkPoint();
+
+        if (walkPointSet)
+            agent.SetDestination(walkPoint);
+
+        Vector3 distanceToWalkPoint = transform.position - walkPoint;
+
+        //Walkpoint reached
+        if (distanceToWalkPoint.magnitude < 1f)
+            walkPointSet = false;
     }
 
     // Patrol the area
@@ -121,5 +146,17 @@ public class EnemyBehavior : MonoBehaviour
     protected void ResetAttack()
     {
         alreadyAttacked = false;
+    }
+
+    // To set destinations from other classes
+    public void SetDestination(Vector3 target)
+    {
+        agent.SetDestination(target);
+    }
+
+    // To set destinations from other classes and forces agent to get there before doing anything else
+    public void SetUninterruptableDestination(Vector3 target)
+    {
+        walkPoint = target;
     }
 }

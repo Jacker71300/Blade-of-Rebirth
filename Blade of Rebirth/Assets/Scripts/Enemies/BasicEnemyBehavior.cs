@@ -83,7 +83,7 @@ public class BasicEnemyBehavior : EnemyBehavior
         // Calculate health modifier
         float healthModifier;
 
-        if (/*getplayerhealth*/ false)
+        if (/*getplayerhealth < 10%*/ false)
             healthModifier = 0.4f;
         else
             healthModifier = 1f;
