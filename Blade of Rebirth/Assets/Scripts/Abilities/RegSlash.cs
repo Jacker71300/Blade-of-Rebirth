@@ -59,7 +59,7 @@ public class RegSlash : Ability
     {
         base.ChargeAbility();
         currentHitbox = GameObject.Instantiate(hitbox, gameObject.transform);
-        gameObject.layer = LayerMask.NameToLayer("PlayerNoCollision");
+        //gameObject.layer = LayerMask.NameToLayer("PlayerNoCollision");
         ChannelAbility();
     }
 
@@ -69,17 +69,24 @@ public class RegSlash : Ability
         //While channeling duration is available, dash forward
         if (ChannelDurationRemaining > 0)
         {
-            //Do damage to each enemy
-            GameObject enemies = currentHitbox.GetComponent<RegSlashHitbox>().getCollisions();
-
-            enemies.GetComponent<EnemyBase>().ApplyDamage(Damage);
-
             ChannelDurationRemaining -= Time.deltaTime;
         }
         else //Put ability on cooldown
         {
+            //Do damage to each enemy
+            List<GameObject> enemies = currentHitbox.GetComponent<RegSlashHitbox>().getCollisions();
+
+            if (enemies != null)
+            {
+                for (int i = 0; i < enemies.Count; i++)
+                {
+                    enemies[i].GetComponent<EnemyBase>().ApplyDamage(Damage);
+                }
+
+            }
+
             Destroy(currentHitbox);
-            gameObject.layer = LayerMask.NameToLayer("PlayerNoCollision");
+            //gameObject.layer = LayerMask.NameToLayer("PlayerNoCollision");
             ChannelDurationRemaining = 0;
             Status = CastState.Cooldown;
         }

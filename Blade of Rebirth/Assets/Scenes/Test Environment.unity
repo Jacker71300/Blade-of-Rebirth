@@ -2028,5 +2028,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerWithCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 1883968211341180413, guid: 085850db2d4c860428f711de43ef2aea,
+        type: 3}
+      propertyPath: ChannelDuration
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883968211341180413, guid: 085850db2d4c860428f711de43ef2aea,
+        type: 3}
+      propertyPath: CoolDownDuration
+      value: 0.01
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 085850db2d4c860428f711de43ef2aea, type: 3}

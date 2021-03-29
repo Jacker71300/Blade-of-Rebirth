@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class RegSlashHitbox : MonoBehaviour
 {
-    [SerializeField] GameObject Collisions;
+    [SerializeField] List<GameObject> Collisions;
     // Start is called before the first frame update
     void Start()
     {
-        Collisions = new GameObject();
+        Collisions = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -23,12 +23,24 @@ public class RegSlashHitbox : MonoBehaviour
         // Filter out objects that aren't enemies
         if (other.gameObject.layer == LayerMask.NameToLayer("EnemyCollision") || other.gameObject.layer == LayerMask.NameToLayer("EnemyNoCollision") || other.gameObject.layer == LayerMask.NameToLayer("EnemyAbsoluteCollision"))
         {
-            Collisions = other.gameObject;
+            Collisions.Add(other.gameObject);
         }
     }
 
-    public GameObject getCollisions()
+    public List<GameObject> getCollisions()
     {
         return Collisions;
+    }
+
+    public void ClearNulls()
+    {
+        for(int i = 0; i < Collisions.Count; i++)
+        {
+            if(Collisions[i] == null)
+            {
+                Collisions.RemoveAt(i);
+                i--;
+            }
+        }
     }
 }
