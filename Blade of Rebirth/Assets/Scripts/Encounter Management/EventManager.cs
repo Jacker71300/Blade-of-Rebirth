@@ -15,7 +15,7 @@ public class EventManager : MonoBehaviour
     void Start()
     {
         // Start inactive and wait for the encounter manager to activate
-        gameObject.SetActive(false);
+        // gameObject.SetActive(false);
     }
 
     // Gets called upon completion of the objective to determine if the player can continue

@@ -23,7 +23,7 @@ public class GoToLocation : EventManager
     public override void Complete()
     {
         base.Complete();
-        GoalTrigger.SetActive(false);
+        //GoalTrigger.SetActive(false);
         gameObject.SetActive(false);
     }
 }
