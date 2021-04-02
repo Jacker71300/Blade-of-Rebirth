@@ -7,11 +7,15 @@ public class RegSlash : Ability
     [SerializeField] GameObject hitbox;
     [SerializeField] float Damage;
     GameObject currentHitbox;
+    Transform playerTrans;
+    Vector3 cameraForward;
 
     // Start is called before the first frame update
     void Start()
     {
         Status = CastState.Ready;
+        playerTrans = gameObject.GetComponent<Transform>();
+        //cameraForward = gameObject.GetComponent<MovementBasic>().GetCameraTransLateral();
     }
 
     // Update is called once per frame
@@ -51,6 +55,8 @@ public class RegSlash : Ability
     //Sets/Preps defaults for casting ability
     protected override void CastAbility()
     {
+        cameraForward = gameObject.GetComponent<MovementBasic>().GetCameraTransLateral();
+        playerTrans.forward = cameraForward;
         base.CastAbility();
     }
 

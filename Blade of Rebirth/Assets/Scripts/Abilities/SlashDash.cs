@@ -10,12 +10,16 @@ public class SlashDash : Ability
     GameObject currentHitbox;
     Vector3 direction;
     float dashSpeed;
+    Transform playerTrans;
+    Transform cameraTrans;
 
     // Start is called before the first frame update
     void Start()
     {
         Status = CastState.Ready;
         dashSpeed = DashDistance / ChannelDuration;
+        playerTrans = gameObject.GetComponent<Transform>();
+        cameraTrans = gameObject.GetComponent<MovementBasic>().GetCameraTrans();
     }
 
     // Update is called once per frame
@@ -55,6 +59,8 @@ public class SlashDash : Ability
     //Sets/Preps defaults for casting ability
     protected override void CastAbility()
     {
+        cameraTrans = gameObject.GetComponent<MovementBasic>().GetCameraTrans();
+        playerTrans.forward = cameraTrans.forward;
         base.CastAbility();
     }
 

@@ -93,12 +93,33 @@ public class MovementBasic : MonoBehaviour
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
 
-        if (movement != Vector2.zero)
-        {
-            float targetAngle = Mathf.Atan2(movement.x, movement.y) * Mathf.Rad2Deg + cameraMainTransform.eulerAngles.y;
-            Quaternion rotation = Quaternion.Euler(0f, targetAngle, 0f);
-            //transform.rotation = rotation;
-            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
+       if (movement != Vector2.zero)
+       {
+            //float targetAngle = Mathf.Atan2(movement.x, movement.y) * Mathf.Rad2Deg + cameraMainTransform.eulerAngles.y;
+            //Quaternion rotation = Quaternion.Euler(0f, targetAngle, 0f);
+            ////transform.rotation = rotation;
+            //transform.rotation = Quaternion.Lerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
+
+            if(gameObject.GetComponent<SlashDash>().Status == Ability.CastState.Charging)
+            {
+                transform.forward = cameraMainTransform.forward;
+            }
+            else
+            {
+                transform.forward = new Vector3(cameraMainTransform.forward.x, 0, cameraMainTransform.forward.z);
+            }
+            
         }
     }
+
+    public Transform GetCameraTrans()
+    {
+        return cameraMainTransform;
+    }
+
+    public Vector3 GetCameraTransLateral()
+    {
+        return new Vector3(cameraMainTransform.forward.x, 0, cameraMainTransform.forward.z);
+    }
+
 }

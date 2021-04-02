@@ -8,14 +8,18 @@ public class UIScript : MonoBehaviour
     [SerializeField] GameObject player;
     float ability1Cooldown;
     float ability2Cooldown;
+    public string currentObjective;
     public Text ability1Text;
     public Text ability2Text;
+    public Text objectiveText;
 
     // Start is called before the first frame update
     void Start()
     {
         ability1Cooldown = player.GetComponent<SlashSpin>().GetCoolDownRemaining();
         ability2Cooldown = player.GetComponent<SlashDash>().GetCoolDownRemaining();
+        if (currentObjective == string.Empty)
+            currentObjective = "No objective";
     }
 
     // Update is called once per frame
@@ -41,5 +45,7 @@ public class UIScript : MonoBehaviour
         {
             ability2Text.text = ((int)ability2Cooldown + 1).ToString();
         }
+
+        objectiveText.text = "- " + currentObjective;
     }
 }
