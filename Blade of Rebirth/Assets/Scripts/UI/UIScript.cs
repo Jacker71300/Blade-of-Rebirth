@@ -14,15 +14,15 @@ public class UIScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ability1Cooldown = player.GetComponent<SlashSpin>().GetComponentInParent<Ability>().CoolDownDurationRemainingPub;
-        ability2Cooldown = player.GetComponent<SlashDash>().GetComponentInParent<Ability>().CoolDownDurationRemainingPub;
+        ability1Cooldown = player.GetComponent<SlashSpin>().GetCoolDownRemaining();
+        ability2Cooldown = player.GetComponent<SlashDash>().GetCoolDownRemaining();
     }
 
     // Update is called once per frame
     void Update()
     {
-        ability1Cooldown = player.GetComponent<SlashSpin>().GetComponentInParent<Ability>().CoolDownDurationRemainingPub;
-        ability2Cooldown = player.GetComponent<SlashDash>().GetComponentInParent<Ability>().CoolDownDurationRemainingPub;
+        ability1Cooldown = player.GetComponent<SlashSpin>().GetCoolDownRemaining();
+        ability2Cooldown = player.GetComponent<SlashDash>().GetCoolDownRemaining();
 
         if(ability1Cooldown == 0)
         {

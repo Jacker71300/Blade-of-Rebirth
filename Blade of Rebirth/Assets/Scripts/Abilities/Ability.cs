@@ -22,9 +22,6 @@ public class Ability : MonoBehaviour
     protected float CoolDownDurationRemaining;
     protected bool casted;
 
-    public float CoolDownDurationRemainingPub;
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -115,12 +112,10 @@ public class Ability : MonoBehaviour
         if(CoolDownDurationRemaining > 0)
         {
             CoolDownDurationRemaining -= Time.deltaTime;
-            CoolDownDurationRemainingPub = CoolDownDurationRemaining;
         }
         else
         {
             CoolDownDurationRemaining = 0;
-            CoolDownDurationRemainingPub = CoolDownDurationRemaining;
             Status = CastState.Ready;
         }
     }
@@ -140,7 +135,7 @@ public class Ability : MonoBehaviour
     public float GetCoolDownRemaining()
     {
         if (Status == CastState.Cooldown)
-            return (CoolDownDurationRemaining / CoolDownDuration);
+            return (CoolDownDurationRemaining);
         else
             return 0;
     }
