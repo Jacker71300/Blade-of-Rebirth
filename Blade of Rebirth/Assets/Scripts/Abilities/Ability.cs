@@ -132,4 +132,12 @@ public class Ability : MonoBehaviour
         if (Status == CastState.Ready)
             casted = true;
     }
+
+    public float GetCoolDownRemaining()
+    {
+        if (Status == CastState.Cooldown)
+            return (CoolDownDurationRemaining / CoolDownDuration);
+        else
+            return 0;
+    }
 }
