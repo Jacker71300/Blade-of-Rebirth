@@ -84,4 +84,9 @@ public class SpawnNode : MonoBehaviour
     {
         return enemies.Count;
     }
+
+    public void ResetSpawns()
+    {
+        currentSpawnIndex = 0;
+    }
 }
