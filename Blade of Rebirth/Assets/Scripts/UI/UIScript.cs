@@ -6,12 +6,24 @@ using UnityEngine.UI;
 public class UIScript : MonoBehaviour
 {
     [SerializeField] GameObject player;
+
+    //Ability stuff
     float ability1Cooldown;
     float ability2Cooldown;
-    public string currentObjective;
     public Text ability1Text;
     public Text ability2Text;
+
+    //Objective stuff
+    public string currentObjective;
     public Text objectiveText;
+
+    //Waypoint stuff
+    public GameObject waypointMarker;
+    public RawImage markerImage;
+    public Text distanceText;
+    public GameObject targetObject;
+    public Vector3 waypointOffset;
+    public bool waypointActive;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +32,8 @@ public class UIScript : MonoBehaviour
         ability2Cooldown = player.GetComponent<SlashDash>().GetCoolDownRemaining();
         if (currentObjective == string.Empty)
             currentObjective = "No objective";
+
+        waypointActive = true;
     }
 
     // Update is called once per frame
@@ -47,5 +61,32 @@ public class UIScript : MonoBehaviour
         }
 
         objectiveText.text = "- " + currentObjective;
+
+        float minX = markerImage.GetPixelAdjustedRect().width / 2;
+        float maxX = Screen.width - minX;
+        float minY = markerImage.GetPixelAdjustedRect().height / 2;
+        float maxY = Screen.height - minY;
+        Vector2 pos = Camera.main.WorldToScreenPoint(targetObject.transform.position) + waypointOffset;
+
+        if(Vector3.Dot((targetObject.transform.position - player.transform.position).normalized, Camera.main.transform.forward) < 0 )
+        {
+            //Target is behind player
+            if(pos.x < Screen.width / 2)
+            {
+                pos.x = maxX;
+            }
+            else
+            {
+                pos.x = minX;
+            }
+        }
+
+        pos.x = Mathf.Clamp(pos.x, minX, maxX);
+        pos.y = Mathf.Clamp(pos.y, minY, maxY);
+        waypointMarker.transform.position = pos;
+
+        distanceText.text = ((int)Vector3.Distance(targetObject.transform.position, player.transform.position)).ToString() + "m";
+
+        waypointMarker.gameObject.SetActive(waypointActive);
     }
 }
