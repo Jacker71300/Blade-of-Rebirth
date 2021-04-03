@@ -14,6 +14,7 @@ public class EventManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        output = GameObject.Find("Canvas");
         // Start inactive and wait for the encounter manager to activate
         // gameObject.SetActive(false);
     }
@@ -21,6 +22,7 @@ public class EventManager : MonoBehaviour
     // Gets called upon completion of the objective to determine if the player can continue
     public virtual void Complete()
     {
+
         print("Complete");
         // Activate the next event when complete
         manager.ActivateNextObject();

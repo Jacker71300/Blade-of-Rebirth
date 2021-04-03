@@ -10,14 +10,14 @@ public class ContinuousCombat : EventManager
     // Start is called before the first frame update
     void Start()
     {
-        // Do nothing
     }
 
     // When the object is activated in the chain of events
     void Awake()
     {
-        print("Current Objective: " + CurrentObjective);
-        foreach(SpawnNode spawner in Spawners)
+        output = GameObject.Find("Canvas");
+        output.GetComponent<UIScript>().currentObjective = CurrentObjective;
+        foreach (SpawnNode spawner in Spawners)
         {
             spawner.gameObject.SetActive(true);
         }

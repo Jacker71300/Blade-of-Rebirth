@@ -5,25 +5,26 @@ using UnityEngine;
 
 public class GoToLocation : EventManager
 {
-    [SerializeField] GameObject GoalTrigger;
+    [SerializeField] List<GameObject> GoalTrigger;
 
     // Start is called before the first frame update
     void Start()
     {
         // set the trigger callback function to complete()
-        GoalTrigger.GetComponent<EncounterTrigger>().SetTriggerCallback(Complete);
+        foreach ( GameObject trigger in GoalTrigger)
+            trigger.GetComponent<EncounterTrigger>().SetTriggerCallback(Complete);
     }
 
     // Set the current objective when activated
     void Awake()
     {
-        print("Current Objective: " + CurrentObjective);
+        output = GameObject.Find("Canvas");
+        output.GetComponent<UIScript>().currentObjective = CurrentObjective;
     }
 
     public override void Complete()
     {
         base.Complete();
-        //GoalTrigger.SetActive(false);
         gameObject.SetActive(false);
     }
 }

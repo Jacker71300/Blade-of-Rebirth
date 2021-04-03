@@ -54,6 +54,7 @@ public class SpawnNode : MonoBehaviour
                 // Spawn all enemies with a delay between each spawn
                 for(int i = 0; i < EnemiesToSpawn.Count; i++)
                 {
+                    print("spawning in " + i * spawnDelay);
                     Invoke(nameof(SpawnEnemy), i * spawnDelay);
                 }
             break;

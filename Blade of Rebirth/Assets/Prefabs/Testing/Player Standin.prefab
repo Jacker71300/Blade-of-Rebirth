@@ -205,9 +205,9 @@ GameObject:
   - component: {fileID: 677991434851133446}
   - component: {fileID: 677991434851133443}
   - component: {fileID: 677991434851133442}
-  - component: {fileID: 677991434851133452}
   - component: {fileID: 677991434851133454}
   - component: {fileID: 677991434851133453}
+  - component: {fileID: 677991434851133452}
   - component: {fileID: 677991434851133455}
   - component: {fileID: 677991436043691670}
   m_Layer: 9
@@ -427,25 +427,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &677991434851133452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 677991434851133445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7ddaf7f15d7fac4d8aba427d8700179, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Status: 0
-  ChargeTime: 0
-  ChannelDuration: 0.25
-  CoolDownDuration: 1
-  DashDistance: 15
-  hitbox: {fileID: 5836593191174999891, guid: a9702f6aa85c6344e80f9ed9abeeea22, type: 3}
-  Damage: 0
 --- !u!143 &677991434851133454
 CharacterController:
   m_ObjectHideFlags: 0
@@ -480,11 +461,30 @@ MonoBehaviour:
     type: 3}
   jumpControl: {fileID: 4170873882176134880, guid: 6b4902d14c6ba5f44b7aaa0b45f9afac,
     type: 3}
-  playerSpeed: 10
-  jumpHeight: 1
-  gracePeriodSet: 0.5
-  gravityValue: -9.81
+  playerSpeed: 15
+  jumpHeight: 4
+  gracePeriodSet: 0.1
+  gravityValue: -30
   rotationSpeed: 20
+--- !u!114 &677991434851133452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677991434851133445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7ddaf7f15d7fac4d8aba427d8700179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Status: 0
+  ChargeTime: 0
+  ChannelDuration: 0.15
+  CoolDownDuration: 1
+  DashDistance: 10
+  hitbox: {fileID: 5836593191174999891, guid: a9702f6aa85c6344e80f9ed9abeeea22, type: 3}
+  Damage: 30
 --- !u!114 &677991434851133455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -499,10 +499,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Status: 0
   ChargeTime: 0
-  ChannelDuration: 0.25
+  ChannelDuration: 0.1
   CoolDownDuration: 1
   Hitbox: {fileID: 7608882895699349282, guid: a91939ff4f9bd2b498d3e20becae63ab, type: 3}
-  Damage: 0
+  Damage: 30
 --- !u!114 &677991436043691670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -517,7 +517,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Status: 0
   ChargeTime: 0
-  ChannelDuration: 0.25
-  CoolDownDuration: 1
+  ChannelDuration: 0.05
+  CoolDownDuration: 0.1
   hitbox: {fileID: 4853314468449141791, guid: 2ba72a6034e1b3547a5b1433544743ad, type: 3}
-  Damage: 0
+  Damage: 20

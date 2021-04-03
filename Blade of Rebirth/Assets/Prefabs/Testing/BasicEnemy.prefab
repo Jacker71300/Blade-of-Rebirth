@@ -154,10 +154,10 @@ MonoBehaviour:
   manager: {fileID: 0}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointSet: 0
-  walkPointRange: 10
+  walkPointRange: 3
   timeBetweenAttacks: 1
-  sightRange: 15
-  attackRange: 5
+  sightRange: 100
+  attackRange: 40
   inSightRange: 0
   inAttackRange: 0
 --- !u!114 &2322428172301228157
@@ -183,8 +183,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
+  m_Speed: 10
+  m_Acceleration: 10
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
