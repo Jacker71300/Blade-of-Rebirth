@@ -66,26 +66,35 @@ public class UIScript : MonoBehaviour
         float maxX = Screen.width - minX;
         float minY = markerImage.GetPixelAdjustedRect().height / 2;
         float maxY = Screen.height - minY;
-        Vector2 pos = Camera.main.WorldToScreenPoint(targetObject.transform.position) + waypointOffset;
 
-        if(Vector3.Dot((targetObject.transform.position - player.transform.position).normalized, Camera.main.transform.forward) < 0 )
+        if (targetObject != null)
         {
-            //Target is behind player
-            if(pos.x < Screen.width / 2)
+            Vector2 pos = Camera.main.WorldToScreenPoint(targetObject.transform.position) + waypointOffset;
+
+            if (Vector3.Dot((targetObject.transform.position - player.transform.position).normalized, Camera.main.transform.forward) < 0)
             {
-                pos.x = maxX;
+                //Target is behind player
+                if (pos.x < Screen.width / 2)
+                {
+                    pos.x = maxX;
+                }
+                else
+                {
+                    pos.x = minX;
+                }
             }
-            else
-            {
-                pos.x = minX;
-            }
+
+            pos.x = Mathf.Clamp(pos.x, minX, maxX);
+            pos.y = Mathf.Clamp(pos.y, minY, maxY);
+            waypointMarker.transform.position = pos;
+
+            distanceText.text = ((int)Vector3.Distance(targetObject.transform.position, player.transform.position)).ToString() + "m";
+
         }
-
-        pos.x = Mathf.Clamp(pos.x, minX, maxX);
-        pos.y = Mathf.Clamp(pos.y, minY, maxY);
-        waypointMarker.transform.position = pos;
-
-        distanceText.text = ((int)Vector3.Distance(targetObject.transform.position, player.transform.position)).ToString() + "m";
+        else
+        {
+            waypointActive = false;
+        }
 
         waypointMarker.gameObject.SetActive(waypointActive);
     }

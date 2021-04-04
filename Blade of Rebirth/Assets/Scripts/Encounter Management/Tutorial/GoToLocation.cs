@@ -6,6 +6,7 @@ using UnityEngine;
 public class GoToLocation : EventManager
 {
     [SerializeField] List<GameObject> GoalTrigger;
+    [SerializeField] GameObject WaypointMarker;
 
     // Start is called before the first frame update
     void Start()
@@ -19,11 +20,14 @@ public class GoToLocation : EventManager
     void Awake()
     {
         output = GameObject.Find("Canvas");
+        output.GetComponent<UIScript>().targetObject = WaypointMarker;
+        output.GetComponent<UIScript>().waypointActive = true;
         output.GetComponent<UIScript>().currentObjective = CurrentObjective;
     }
 
     public override void Complete()
     {
+        output.GetComponent<UIScript>().waypointActive = false;
         base.Complete();
         gameObject.SetActive(false);
     }
