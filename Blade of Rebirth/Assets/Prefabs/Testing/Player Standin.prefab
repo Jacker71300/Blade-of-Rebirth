@@ -481,7 +481,7 @@ MonoBehaviour:
   Status: 0
   ChargeTime: 0
   ChannelDuration: 0.15
-  CoolDownDuration: 1
+  CoolDownDuration: 3
   DashDistance: 10
   hitbox: {fileID: 5836593191174999891, guid: a9702f6aa85c6344e80f9ed9abeeea22, type: 3}
   Damage: 30
@@ -500,8 +500,8 @@ MonoBehaviour:
   Status: 0
   ChargeTime: 0
   ChannelDuration: 0.1
-  CoolDownDuration: 1
-  Hitbox: {fileID: 7608882895699349282, guid: a91939ff4f9bd2b498d3e20becae63ab, type: 3}
+  CoolDownDuration: 3
+  Hitbox: {fileID: 1829083153274769433, guid: 8ead50f24bd0bc4468e8569237fff008, type: 3}
   Damage: 30
 --- !u!114 &677991436043691670
 MonoBehaviour:

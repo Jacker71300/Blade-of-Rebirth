@@ -7,18 +7,6 @@ public class TestDummy : EnemyBase
 {
     [SerializeField] bool IsInvincible;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     //Applies damage and returns remaining health
     public override void ApplyDamage(float damage)
     {

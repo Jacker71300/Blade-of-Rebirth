@@ -18,7 +18,7 @@ public class SpinSlashHitbox : MonoBehaviour
     }
 
     // Handles applying damage to enemies
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         // Filter out objects that aren't enemies
         if (other.gameObject.layer == LayerMask.NameToLayer("EnemyCollision") || other.gameObject.layer == LayerMask.NameToLayer("EnemyNoCollision") || other.gameObject.layer == LayerMask.NameToLayer("EnemyAbsoluteCollision"))

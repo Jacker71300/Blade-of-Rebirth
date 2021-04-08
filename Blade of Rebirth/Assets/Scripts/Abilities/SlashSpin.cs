@@ -7,10 +7,12 @@ public class SlashSpin : Ability
 {
     [SerializeField] GameObject Hitbox;
     [SerializeField] float Damage;
+    Vector3 position;
     GameObject currentHitbox;
     float spinSpeed;
     Transform playerTrans;
     Vector3 cameraForward;
+    GameObject destroyHitbox;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +20,7 @@ public class SlashSpin : Ability
         Status = CastState.Ready;
         spinSpeed = 360.0f / ChannelDuration;
         playerTrans = gameObject.GetComponent<Transform>();
+        position = playerTrans.transform.position;
         //cameraForward = gameObject.GetComponent<MovementBasic>().GetCameraTransLateral();
     }
 
@@ -67,18 +70,18 @@ public class SlashSpin : Ability
     protected override void ChargeAbility()
     {
         base.ChargeAbility();
-        currentHitbox = GameObject.Instantiate(Hitbox, gameObject.transform);
+        position = playerTrans.position;
+        currentHitbox = GameObject.Instantiate(Hitbox, position, Quaternion.identity);
         ChannelAbility();
     }
 
-    // Rotates the hitbox around the player
+    // Gets Hit detection and applies damage
     protected override void ChannelAbility()
     {
-        //While channeling duration is available, rotate the hitbox
+        //While channeling duration is available
         if (ChannelDurationRemaining > 0)
         {
-            // Rotate
-            currentHitbox.transform.Rotate(0, -spinSpeed * Time.deltaTime, 0, Space.Self);
+            //Rotate the particles
             ChannelDurationRemaining -= Time.deltaTime;
         }
         else //Put ability on cooldown
@@ -87,7 +90,7 @@ public class SlashSpin : Ability
             if (currentHitbox.GetComponentInChildren<SpinSlashHitbox>().getNumCollisions() >= 3)
                 gameObject.GetComponent<SlashDash>().ResetCooldown();
 
-            List<GameObject> enemies = currentHitbox.GetComponentInChildren<SpinSlashHitbox>().getCollisions();
+            List<GameObject> enemies = currentHitbox.GetComponent<SpinSlashHitbox>().getCollisions();
 
             for (int i = 0; i < enemies.Count; i++)
             {
@@ -95,7 +98,9 @@ public class SlashSpin : Ability
                 enemies[i].GetComponent<EnemyBase>().ApplyDamage(Damage);
             }
 
-            Destroy(currentHitbox);
+            destroyHitbox = currentHitbox;
+
+            Invoke(nameof(DestroyBox), 0.5f + ChannelDuration);
             ChannelDurationRemaining = 0;
             Status = CastState.Cooldown;
         }
@@ -104,5 +109,10 @@ public class SlashSpin : Ability
     protected override void AbilityCooldown()
     {
         base.AbilityCooldown();
+    }
+
+    private void DestroyBox()
+    {
+        Destroy(destroyHitbox);
     }
 }
