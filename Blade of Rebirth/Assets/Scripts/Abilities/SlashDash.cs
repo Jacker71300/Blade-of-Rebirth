@@ -8,6 +8,7 @@ public class SlashDash : Ability
     [SerializeField] GameObject hitbox;
     [SerializeField] float Damage;
     GameObject currentHitbox;
+    Queue<GameObject> destroyHitbox;
     Vector3 direction;
     float dashSpeed;
     Transform playerTrans;
@@ -16,6 +17,7 @@ public class SlashDash : Ability
     // Start is called before the first frame update
     void Start()
     {
+        destroyHitbox = new Queue<GameObject>();
         Status = CastState.Ready;
         dashSpeed = DashDistance / ChannelDuration;
         playerTrans = gameObject.GetComponent<Transform>();
@@ -95,7 +97,10 @@ public class SlashDash : Ability
                 enemies[i].GetComponent<EnemyBase>().ApplyDamage(Damage, gameObject.GetComponent<SlashSpin>().ResetCooldown);
             }
 
-            Destroy(currentHitbox);
+            destroyHitbox.Enqueue(currentHitbox);
+
+            Invoke(nameof(DestroyBox), 0.1f + ChannelDuration);
+            GetComponent<PlayerSFXManager>().Play(PlayerSFXManager.PlayerAudioKeys.SlashDash);
             gameObject.layer = LayerMask.NameToLayer("PlayerNoCollision");
             ChannelDurationRemaining = 0;
             Status = CastState.Cooldown;
@@ -105,5 +110,10 @@ public class SlashDash : Ability
     protected override void AbilityCooldown()
     {
         base.AbilityCooldown();
+    }
+
+    private void DestroyBox()
+    {
+        Destroy(destroyHitbox.Dequeue());
     }
 }

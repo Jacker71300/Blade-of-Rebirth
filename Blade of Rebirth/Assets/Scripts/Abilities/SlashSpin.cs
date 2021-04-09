@@ -12,11 +12,12 @@ public class SlashSpin : Ability
     float spinSpeed;
     Transform playerTrans;
     Vector3 cameraForward;
-    GameObject destroyHitbox;
+    Queue<GameObject> destroyHitbox;
 
     // Start is called before the first frame update
     void Start()
     {
+        destroyHitbox = new Queue<GameObject>();
         Status = CastState.Ready;
         spinSpeed = 360.0f / ChannelDuration;
         playerTrans = gameObject.GetComponent<Transform>();
@@ -98,9 +99,10 @@ public class SlashSpin : Ability
                 enemies[i].GetComponent<EnemyBase>().ApplyDamage(Damage);
             }
 
-            destroyHitbox = currentHitbox;
+            destroyHitbox.Enqueue(currentHitbox);
 
             Invoke(nameof(DestroyBox), 0.5f + ChannelDuration);
+            GetComponent<PlayerSFXManager>().Play(PlayerSFXManager.PlayerAudioKeys.SpinSlash);
             ChannelDurationRemaining = 0;
             Status = CastState.Cooldown;
         }
@@ -113,6 +115,6 @@ public class SlashSpin : Ability
 
     private void DestroyBox()
     {
-        Destroy(destroyHitbox);
+        Destroy(destroyHitbox.Dequeue());
     }
 }

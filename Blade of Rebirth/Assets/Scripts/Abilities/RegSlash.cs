@@ -7,12 +7,14 @@ public class RegSlash : Ability
     [SerializeField] GameObject hitbox;
     [SerializeField] float Damage;
     GameObject currentHitbox;
+    Queue<GameObject> destroyHitbox;
     Transform playerTrans;
     Vector3 cameraForward;
 
     // Start is called before the first frame update
     void Start()
     {
+        destroyHitbox = new Queue<GameObject>();
         Status = CastState.Ready;
         playerTrans = gameObject.GetComponent<Transform>();
         //cameraForward = gameObject.GetComponent<MovementBasic>().GetCameraTransLateral();
@@ -91,8 +93,10 @@ public class RegSlash : Ability
 
             }
 
-            Destroy(currentHitbox);
-            //gameObject.layer = LayerMask.NameToLayer("PlayerNoCollision");
+            destroyHitbox.Enqueue(currentHitbox);
+
+            Invoke(nameof(DestroyBox), 0.35f - ChannelDuration);
+            GetComponent<PlayerSFXManager>().Play(PlayerSFXManager.PlayerAudioKeys.RegSlash);
             ChannelDurationRemaining = 0;
             Status = CastState.Cooldown;
         }
@@ -101,5 +105,10 @@ public class RegSlash : Ability
     protected override void AbilityCooldown()
     {
         base.AbilityCooldown();
+    }
+
+    private void DestroyBox()
+    {
+        Destroy(destroyHitbox.Dequeue());
     }
 }
