@@ -11,7 +11,9 @@ public class UIScript : MonoBehaviour
     float ability1Cooldown;
     float ability2Cooldown;
     public Text ability1Text;
+    public string ability1Bind;
     public Text ability2Text;
+    public string ability2Bind;
 
     //Objective stuff
     public string currentObjective;
@@ -44,7 +46,7 @@ public class UIScript : MonoBehaviour
 
         if(ability1Cooldown == 0)
         {
-            ability1Text.text = "Ready!";
+            ability1Text.text = ability1Bind;
         }
         else
         {
@@ -53,7 +55,7 @@ public class UIScript : MonoBehaviour
 
         if(ability2Cooldown == 0)
         {
-            ability2Text.text = "Ready!";
+            ability2Text.text = ability2Bind;
         }
         else
         {
