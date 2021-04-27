@@ -1,0 +1,33 @@
+{
+    "name": "TitleControls",
+    "maps": [
+        {
+            "name": "Title Screen",
+            "id": "07e6d102-6159-419d-9575-736b2bc2f75d",
+            "actions": [
+                {
+                    "name": "Enter",
+                    "type": "Button",
+                    "id": "2791b65d-9217-4347-910d-91c35788ddf5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "42e3d236-1f98-43ee-89d3-4a364bb48933",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Enter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
