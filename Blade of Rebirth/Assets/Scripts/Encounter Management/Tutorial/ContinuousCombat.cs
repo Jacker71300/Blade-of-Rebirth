@@ -10,6 +10,7 @@ public class ContinuousCombat : EventManager
     // Start is called before the first frame update
     void Start()
     {
+
     }
 
     // When the object is activated in the chain of events

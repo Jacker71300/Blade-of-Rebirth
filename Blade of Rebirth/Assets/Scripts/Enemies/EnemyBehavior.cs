@@ -86,7 +86,7 @@ public class EnemyBehavior : MonoBehaviour
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
         //Walkpoint reached
-        if (distanceToWalkPoint.magnitude < 1f)
+        if (distanceToWalkPoint.magnitude < 0.5f)
             walkPointSet = false;
     }
 
@@ -158,5 +158,6 @@ public class EnemyBehavior : MonoBehaviour
     public void SetUninterruptableDestination(Vector3 target)
     {
         walkPoint = target;
+        isUninterruptable = true;
     }
 }
