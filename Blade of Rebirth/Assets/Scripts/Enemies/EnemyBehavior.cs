@@ -40,7 +40,7 @@ public class EnemyBehavior : MonoBehaviour
     // Set basic values when instantiated
     void Awake()
     {
-        player = GameObject.Find("Player Standin").transform;
+        player = GameObject.Find("Main_Character").transform;
         agent = GetComponent<NavMeshAgent>();
     }
 
