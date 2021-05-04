@@ -16,6 +16,17 @@ public class ExecuteEnemy : EventManager
         output.GetComponent<UIScript>().waypointActive = true;
         output.GetComponent<UIScript>().currentObjective = CurrentObjective;
         target = GameObject.Instantiate(target, spawnLocation);
-        target.GetComponent<EnemyBase>().AddDeathCallback(Complete);
+    }
+
+    private void Update()
+    {
+        if(target != null)
+        {
+            // do nothing
+        }
+        else
+        {
+            Complete();
+        }
     }
 }
