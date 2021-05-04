@@ -15,7 +15,7 @@ public class SniperEnemyBehavior : EnemyBehavior
     // Set basic values when instantiated
     private void Awake()
     {
-        player = GameObject.Find("Main_Character").transform;
+        player = GameObject.FindGameObjectWithTag("PlayerObj").transform;
         agent = GetComponent<NavMeshAgent>();
         windUpTimeLeft = windUpTime;
         targettingTimeLeft = targettingTime;

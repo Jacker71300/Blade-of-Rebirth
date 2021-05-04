@@ -21,6 +21,7 @@ public class Combat : EventManager
         foreach (SpawnNode spawner in Spawners)
         {
             spawner.gameObject.SetActive(true);
+            spawner.Activate();
         }
     }
 

@@ -10,7 +10,7 @@ public class EncounterTrigger : MonoBehaviour
     // Only activates on player entry
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("PlayerObj"))
         {
             callback();
         }

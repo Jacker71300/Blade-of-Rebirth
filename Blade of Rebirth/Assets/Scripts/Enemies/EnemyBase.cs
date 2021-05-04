@@ -14,6 +14,11 @@ public class EnemyBase : MonoBehaviour
         deathCallbacks = new List<Action>();
     }
 
+    private void Awake()
+    {
+        deathCallbacks = new List<Action>();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -46,7 +51,6 @@ public class EnemyBase : MonoBehaviour
     // Adds a callback function to the enemy
     public virtual void AddDeathCallback(Action callback)
     {
-        print(callback);
         deathCallbacks.Add(callback);
     }
 
