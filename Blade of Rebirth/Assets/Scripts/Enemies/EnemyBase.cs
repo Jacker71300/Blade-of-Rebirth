@@ -46,6 +46,7 @@ public class EnemyBase : MonoBehaviour
     // Adds a callback function to the enemy
     public virtual void AddDeathCallback(Action callback)
     {
+        print(callback);
         deathCallbacks.Add(callback);
     }
 

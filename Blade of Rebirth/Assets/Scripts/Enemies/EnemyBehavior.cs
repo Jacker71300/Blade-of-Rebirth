@@ -143,7 +143,7 @@ public class EnemyBehavior : MonoBehaviour
     }
 
     // Reset the attack
-    protected void ResetAttack()
+    protected virtual void ResetAttack()
     {
         alreadyAttacked = false;
     }

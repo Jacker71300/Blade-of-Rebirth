@@ -11,6 +11,10 @@ public class ExecuteEnemy : EventManager
     // When the node is activated in the chain of events
     void Awake()
     {
+        output = GameObject.Find("Canvas");
+        output.GetComponent<UIScript>().targetObject = target;
+        output.GetComponent<UIScript>().waypointActive = true;
+        output.GetComponent<UIScript>().currentObjective = CurrentObjective;
         target = GameObject.Instantiate(target, spawnLocation);
         target.GetComponent<EnemyBase>().AddDeathCallback(Complete);
     }
